@@ -7,114 +7,310 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'CIPACA Healthcare Newsletter',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primaryColor: const Color(0xFF005A9C),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF005A9C),
+          secondary: const Color(0xFFE53935),
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+              fontSize: 48.0, fontWeight: FontWeight.bold, color: Colors.white),
+          headlineMedium: TextStyle(
+              fontSize: 28.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF005A9C)),
+          bodyLarge: TextStyle(fontSize: 16.0, height: 1.5),
+          bodyMedium: TextStyle(fontSize: 14.0, height: 1.4),
+        ),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const NewsletterScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class NewsletterScreen extends StatelessWidget {
+  const NewsletterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: SingleChildScrollView(
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text('$_counter', style: Theme.of(context).textTheme.headlineMedium),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeader(context),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildIntroSection(),
+                  const SizedBox(height: 32),
+                  _buildSection(
+                    context,
+                    icon: Icons.article,
+                    title: "From the MD's Desk",
+                    content:
+                        "Pioneering Progress in Rural Healthcare. Our mission aligns seamlessly with our motto: Saving Lives, Saving Costs. This commitment has driven every milestone we've achieved...",
+                    imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070',
+                  ),
+                  _buildSection(
+                    context,
+                    icon: Icons.handshake,
+                    title: "Partner Hospital Collaborations",
+                    content:
+                        "Our commitment to making critical care accessible across rural India is fortified through strategic collaborations with hospitals, enabling us to establish state-of-the-art ICUs in remote areas.",
+                    imageUrl: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=2070',
+                  ),
+                   _buildSection(
+                    context,
+                    icon: Icons.people_alt,
+                    title: "Community Activities & CSR",
+                    content:
+                        "Our community outreach programs, health camps, and Corporate Social Responsibility (CSR) activities serve as the foundation of our mission to bridge healthcare disparities.",
+                    imageUrl: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070',
+                  ),
+                  _buildSection(
+                    context,
+                    icon: Icons.star,
+                    title: "Awards & Recognitions",
+                    content:
+                        "Proudly standing as India's Largest Rural ICU Care Provider, CIPACA has received commendations for the sheer number of lives saved and for its unrivaled critical care training programs.",
+                    imageUrl: 'https://images.unsplash.com/photo-1560419356-648946705b64?q=80&w=2070',
+                  ),
+                  _buildEmployeeSpotlight(context),
+                  _buildMetrics(context),
+                ],
+              ),
+            ),
+            _buildFooter(context),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      color: Theme.of(context).primaryColor,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+      child: Center(
+        child: Column(
+          children: [
+            Text(
+              'CIPACA Healthcare Newsletter',
+              style: Theme.of(context).textTheme.displayLarge,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'November 2025',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(color: Colors.white70),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIntroSection() {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.lightBlue.shade50,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Saving Lives, Saving Costs',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.red.shade700,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            "India's Largest Rural ICU Provider",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.blue.shade800,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Delivering world-class critical care to rural communities across India.',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey.shade800,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSection(BuildContext context,
+      {required IconData icon,
+      required String title,
+      required String content,
+      required String imageUrl}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 32.0),
+      child: Card(
+        elevation: 4,
+        shadowColor: Colors.black26,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+              child: Image.network(
+                imageUrl,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  height: 200,
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.broken_image, size: 50, color: Colors.grey),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(icon, color: Theme.of(context).primaryColor, size: 32),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(title,
+                            style: Theme.of(context).textTheme.headlineMedium),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Text(content, style: Theme.of(context).textTheme.bodyLarge),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  Widget _buildEmployeeSpotlight(BuildContext context) {
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.only(bottom: 32),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      color: Colors.blue.shade50,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            const CircleAvatar(
+              radius: 40,
+              backgroundColor: Colors.white,
+              backgroundImage: NetworkImage('https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=1974'),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Employee Spotlight", style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 22)),
+                  const SizedBox(height: 8),
+                  Text("Dr. Keshav Singhal, a visionary leader in Orthopaedic Care, is our CIPACAITE of the Month.", style: Theme.of(context).textTheme.bodyLarge),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+  
+  Widget _buildMetrics(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Metrics & Achievements", style: Theme.of(context).textTheme.headlineMedium),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildMetricItem(context, "500+", "ICU Beds Operationalized"),
+            _buildMetricItem(context, "10+", "States with ICUs Established"),
+            _buildMetricItem(context, "10k+", "Hours of Critical Care Training"),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMetricItem(BuildContext context, String value, String label) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 14, color: Colors.black54),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFooter(BuildContext context) {
+    return Container(
+      color: Colors.grey.shade800,
+      padding: const EdgeInsets.all(24),
+      child: Center(
+        child: Column(
+          children: [
+            const Text(
+              'Thank you for being part of the CIPACA family!',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'For more information, visit www.cipaca.com or contact us at info@cipaca.com',
+              style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
